@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="products">
+        
+    </div>
+    <script src="javascript/main.js"></script>
+</body>
+<script>
+
+let promise = fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=5")
+let goods = document.querySelector('.products');
+    
+promise.then(response => {
+        return response.json();})
+        .then(json => {return fetch(`https://deckofcardsapi.com/api/deck/${json.deck_id}/draw/?count=5`)})
+        .then(response => {return response.json()})
+        .then(json => {json.cards.forEach(element => {
+            let item = document.createElement('div'); // Создаем новый div элемент
+            item.classList.add('item'); // Добавляем к нему класс item
+            console.log(element)
+            let new_ = fetch("")
+            item.innerHTML = `
+                <div>
+                    <div class="item-title">${element.code}</div>
+                    <div class="item-image">
+                        <img src="${element.image}" alt="">
+                    </div>
+                    <div class="property">
+                        <div>Категория:</div>
+                        <div>${element.value}</div>
+                        <div>Рейтинг:</div>
+                        <div>${element.suit}</div>
+                    </div>
+                    
+            `; /* Создаем внутри блока товар */
+            goods.append(item);
+        });
+    
+    });
+
+
+
+</script>
+</html>
